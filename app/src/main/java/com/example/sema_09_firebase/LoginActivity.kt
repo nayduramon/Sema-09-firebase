@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -21,31 +20,30 @@ class LoginActivity : AppCompatActivity() {
         val btnLogin: Button = findViewById(R.id.btnLogin)
         val btnRegister: Button = findViewById(R.id.btnRegister)
 
-        btnLogin.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity2::class.java))
+        btnRegister.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
-        btnLogin.setOnClickListener{
-            val correo = txtEmail.text.toString()
-            val clave  = txtPassword.text.toString()
 
-            auth.signInWithEmailAndPassword(correo, clave)
-                .addOnCompleteListener(this){ task->
+        btnLogin.setOnClickListener {
+            val correo = txtEmail.text.toString()
+            val clave = txtPassword.text.toString()
+
+            auth.signInWithEmailAndPassword(correo,clave)
+                .addOnCompleteListener(this){task->
                     if(task.isSuccessful){
                         Snackbar
                             .make(
                                 findViewById(android.R.id.content)
-                                , "Inicio de sesión exitoso"
+                                ,"Inicio de sesión exitoso"
                                 , Snackbar.LENGTH_LONG
-
                             ).show()
                         startActivity(Intent(this, MainActivity::class.java))
-                    }else{
+                    }else {
                         Snackbar
                             .make(
                                 findViewById(android.R.id.content)
-                                , "Credenciales Inválidas"
+                                ,"Credenciales inválidas"
                                 , Snackbar.LENGTH_LONG
-
                             ).show()
                     }
                 }
